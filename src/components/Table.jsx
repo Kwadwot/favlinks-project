@@ -1,6 +1,8 @@
+import React from 'react'
+
 function TableHeader() {
     return (
-        // responsible for render the table header with appropriate columns
+        // responsible for rendering the table header with appropriate columns
         <thead>
             <tr>
                 <th>Name</th>
@@ -11,18 +13,34 @@ function TableHeader() {
     )
 }
 
-function TableBody() {
-    // responsible for render the data for the table
+const TableBody = (props) => {
+    /* boilerplate table body functional component 
+    responsible for rendering the data for the table */
+    // using Array.map to create table rows from LinkData passed via props
+    const rows = props.linkData.map((row, index) => {
+        return (
+            <tr key={index}>
+                <td>{row.name}</td>
+                <td>
+                    <a href={row.URL}>{row.URL}</a>
+                </td>
+                <td>
+                    <button onClick={() => props.removeLink(index)}>Delete</button>
+                </td>
+            </tr>
+        )
+    })
+
     return (
-        <tbody></tbody>
+        <tbody>{rows}</tbody>
     )
 }
 
-function Table() {
+const Table = (props) => {
     return (
         <table>
             <TableHeader />
-            <TableBody />
+            <TableBody linkData={props.linkData} />
         </table>
     )
 }
